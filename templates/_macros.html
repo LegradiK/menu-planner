@@ -1,0 +1,32 @@
+{% macro recipe_item(recipe, open=false) %}
+<details class="recipe-item" {% if open %}open{% endif %}>
+  <summary>
+    <span class="recipe-name">{{ recipe.name }}</span>
+    <span class="recipe-genre">{{ recipe.genre }}</span>
+  </summary>
+
+  <div class="recipe-details">
+    {% if recipe.weight %}
+      <p class="text-muted mb-2">Weight: {{ recipe.weight }}</p>
+    {% endif %}
+
+    <h4>Ingredients</h4>
+    <ul>
+      {% for ingredient in recipe.ingredients %}
+        <li>{{ ingredient.quantity }} {{ ingredient.measurement or '' }} {{ ingredient.name }}</li>
+      {% endfor %}
+    </ul>
+
+    <h4>Instructions</h4>
+    <ol>
+      {% for instruction in recipe.instructions %}
+        <li>{{ instruction }}</li>
+      {% endfor %}
+    </ol>
+
+    {% if recipe.link %}
+      <a href="{{ recipe.link }}" class="card-link" target="_blank" rel="noopener noreferrer">Full recipe</a>
+    {% endif %}
+  </div>
+</details>
+{% endmacro %}

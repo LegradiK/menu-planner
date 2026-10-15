@@ -32,12 +32,18 @@ sample_data = {
 
 global_menu = []
 
+RECIPE_FILES = {
+    "main": "main_recipes.json",
+    "dessert": "dessert_recipes.json",
+    "bread": "bread_recipes.json",
+}
+
 
 class SearchForm(FlaskForm):
     """
     FlaskForm for /search page, searches a particular recipe
     """
-    genre = SelectField('Genre', choices=[('main', 'Main'), ('dessert', 'Dessert')],
+    genre = SelectField('Genre', choices=[('main', 'Main'), ('bread', 'Bread'), ('dessert', 'Dessert')],
                         validators=[DataRequired()])
     recipe_name = StringField('Recipe Name', validators=[DataRequired()])
     submit = SubmitField('Search')
@@ -96,40 +102,28 @@ def get_recipes():
     bread_suggestion_data = bread_suggestion()
     return render_template('recipes.html', menu=global_menu, bread=bread_suggestion_data)
 
-@app.route('/search', methods=["GET","POST"])
+
+@app.route("/search", methods=["GET", "POST"])
 def search_recipe():
-    """
-    Route when visiting /search
-    Returns:
-        a search result
-    """
+    """Search recipes by (partial) name within a genre."""
     form = SearchForm()
-    search_item = None
+    results = []
+    searched = False
 
     if form.validate_on_submit():
-        name = form.recipe_name.data
-        genre = form.genre.data
-        file_path = None
+        searched = True
+        query = form.recipe_name.data.strip().lower()
+        filename = RECIPE_FILES.get(form.genre.data)
 
-        if genre == "main":
-            file_path = 'recipes/main_recipes.json'
-        elif genre == "dessert":
-            file_path = 'recipes/dessert_recipes.json'
-        elif genre == "bread":
-            file_path = 'recipes/bread_recipes.json'
+        if filename:
+            file_path = os.path.join(app.root_path, "recipes", filename)
+            with open(file_path, "r", encoding="utf-8") as file:
+                recipes = json.load(file)["recipes"]
 
-        with open(file_path, 'r', encoding='utf-8') as file:
-            data = json.load(file)
-            recipes = data["recipes"]
+            results = [r for r in recipes if query in r["name"].lower()]
 
-        for i in recipes:
-            if name.lower() == i["name"].lower():
-                search_item = i
-                break
+    return render_template("search.html", form=form, results=results, searched=searched)
 
-        return render_template('search.html', form=form, recipe=search_item)
-
-    return render_template('search.html', form=form)
 
 @app.route('/delete', methods=['POST','GET'])
 def delete():

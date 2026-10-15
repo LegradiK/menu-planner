@@ -27,6 +27,13 @@
             </a>
           </li>
           <li>
+            <a class="nav-btn {% if request.endpoint == 'search_recipe' %}active{% endif %}"
+               href="{{ url_for('search_recipe') }}"
+               {% if request.endpoint == 'search_recipe' %}aria-current="page"{% endif %}>
+              Search
+            </a>
+          </li>
+          <li>
             <a class="nav-btn {% if request.endpoint == 'add_recipes' %}active{% endif %}"
                href="{{ url_for('add_recipes') }}"
                {% if request.endpoint == 'add_recipes' %}aria-current="page"{% endif %}>

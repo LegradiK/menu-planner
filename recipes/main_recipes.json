@@ -125,7 +125,7 @@
             ]
         },
         {
-            "name": "Greek Chicken Gyros recipe",
+            "name": "Greek Chicken Gyros",
             "ingredients": [
                 {
                     "quantity": 1,
@@ -320,7 +320,7 @@
         },
         {
             "genre": "main",
-            "name": "Vegan vegetable curry recipe",
+            "name": "Vegan vegetable curry",
             "ingredients": [
                 {
                     "quantity": "1",
@@ -792,7 +792,7 @@
         },
         {
             "genre": "main",
-            "name": "Fresh Pico de Gallo Recipe",
+            "name": "Fresh Pico de Gallo",
             "ingredients": [
                 {
                     "quantity": "1.5",
@@ -1080,7 +1080,7 @@
         },
         {
             "genre": "main",
-            "name": "Easy chicken korma recipe",
+            "name": "Easy chicken korma",
             "ingredients": [
                 {
                     "quantity": "600",
@@ -1653,7 +1653,7 @@
         },
         {
             "genre": "main",
-            "name": "One-tray chicken wings recipe",
+            "name": "One-tray chicken wings",
             "ingredients": [
                 {
                     "quantity": "1",
@@ -1720,7 +1720,7 @@
         },
         {
             "genre": "main",
-            "name": "Chunky minestrone soup with gnocchi recipe",
+            "name": "Chunky minestrone soup with gnocchi",
             "ingredients": [
                 {
                     "quantity": "1",
