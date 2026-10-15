@@ -14,6 +14,7 @@ from build_menu import build_main_menu, bread_suggestion
 from save_recipe import save_recipe
 from shopping_list import collect_ingredients, update_shopping_list, categorize_ingredients
 from datetime import datetime
+from collections import defaultdict
 
 
 app = Flask(__name__)
@@ -37,6 +38,8 @@ RECIPE_FILES = {
     "dessert": "dessert_recipes.json",
     "bread": "bread_recipes.json",
 }
+
+CATEGORY_LABELS = {"main": "Main dishes", "dessert": "Desserts", "bread": "Bread"}
 
 
 class SearchForm(FlaskForm):
@@ -123,6 +126,31 @@ def search_recipe():
             results = [r for r in recipes if query in r["name"].lower()]
 
     return render_template("search.html", form=form, results=results, searched=searched)
+
+@app.route("/all-recipes")
+def all_recipes():
+    """Show every recipe, grouped by category and then by cuisine/type."""
+    catalogue = {}
+
+    for key, filename in RECIPE_FILES.items():
+        file_path = os.path.join(app.root_path, "recipes", filename)
+        if not os.path.exists(file_path):
+            continue
+
+        with open(file_path, "r", encoding="utf-8") as file:
+            recipes = json.load(file)["recipes"]
+
+        groups = defaultdict(list)
+        for recipe in recipes:
+            group = (recipe.get("cuisine") or "Other").strip().title()
+            groups[group].append(recipe)
+
+        catalogue[CATEGORY_LABELS[key]] = {
+            group: sorted(items, key=lambda r: r["name"].lower())
+            for group, items in sorted(groups.items())
+        }
+
+    return render_template("all_recipes.html", catalogue=catalogue)
 
 
 @app.route('/delete', methods=['POST','GET'])

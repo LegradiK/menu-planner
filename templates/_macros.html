@@ -2,7 +2,7 @@
 <details class="recipe-item" {% if open %}open{% endif %}>
   <summary>
     <span class="recipe-name">{{ recipe.name }}</span>
-    <span class="recipe-genre">{{ recipe.genre }}</span>
+    <span class="recipe-genre">{{ recipe.cuisine or recipe.genre }}</span>
   </summary>
 
   <div class="recipe-details">

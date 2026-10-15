@@ -1,6 +1,7 @@
 {
     "recipes": [
         {
+            "genre": "main",
             "name": "Baked Chicken Breast",
             "ingredients": [
                 {
@@ -51,6 +52,7 @@
             ]
         },
         {
+            "genre": "main",
             "name": "Chicken Stroganoff",
             "ingredients": [
                 {
@@ -125,6 +127,7 @@
             ]
         },
         {
+            "genre": "main",
             "name": "Greek Chicken Gyros",
             "ingredients": [
                 {
@@ -251,6 +254,7 @@
             ]
         },
         {
+            "genre": "main",
             "name": "No-fuss shepherds pie",
             "ingredients": [
                 {

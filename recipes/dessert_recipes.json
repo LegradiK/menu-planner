@@ -2,6 +2,7 @@
     "recipes": [
         {
             "genre": "dessert",
+            "cuisine": "cake",
             "name": "Chocolate Cake",
             "ingredients": [
                 {

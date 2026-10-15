@@ -20,6 +20,10 @@
       <nav>
         <ul class="nav-links">
           <li>
+            <a class="nav-btn {% if request.endpoint == 'all_recipes' %}active{% endif %}"
+              href="{{ url_for('all_recipes') }}">All recipes</a>
+          </li>
+          <li>
             <a class="nav-btn {% if request.endpoint == 'get_recipes' %}active{% endif %}"
                href="{{ url_for('get_recipes') }}"
                {% if request.endpoint == 'get_recipes' %}aria-current="page"{% endif %}>
