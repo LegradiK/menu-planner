@@ -1,126 +1,367 @@
 /* This CSS file will need to be added to the styling of
 your web pages for the styles to be rendered. */
 
-html, body {
-  background-color: #333;
-  color: white;
-  margin: 0;
-  overflow-y: auto; /* Allow scrolling */
+/* ---------- Colour palette (change these to re-theme the whole site) ---------- */
+:root {
+  --bg: #ffffff;            /* page background: white, same as the header */
+  --surface: #ffffff;       /* cards, inputs */
+  --surface-alt: #f7f8f6;   /* subtle panels, code blocks, footer */
+  --text: #2d2a26;          /* main text: soft near-black */
+  --text-muted: #6b665e;    /* secondary text */
+  --border: #e4e7e3;        /* soft borders */
+  --primary: #3f7d58;       /* fresh herb green */
+  --primary-dark: #2f6145;  /* hover / pressed */
+  --primary-light: #e6f1ea; /* light green tint */
+  --accent: #d9693a;        /* warm tomato orange */
+  --radius: 12px;
+  --pill: 999px;
+  --shadow: 0 2px 10px rgba(45, 42, 38, 0.08);
 }
-.card {
-  margin: 20px auto;
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  line-height: 1.6;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.jumbotron {
+  flex: 1;                   /* fill all space between header and footer */
+  display: flex;
+  align-items: center;       /* centre vertically */
+  justify-content: center;   /* centre horizontally */
+  margin: 0;
+  padding: 48px 16px;
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+.jumbotron .container {
+  max-width: 720px;          /* keeps the text block a readable width */
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4 {
+  color: var(--text);
+  font-weight: 700;
+}
+
+a {
+  color: var(--primary);
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.header-inner {
   max-width: 1200px;
-  min-height: 350px; /* Set a minimum height */
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.brand {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.brand:hover {
+  color: var(--primary-dark);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Pill button style, shared by nav buttons and all Bootstrap buttons */
+.nav-btn,
+.btn {
+  display: inline-block;
+  padding: 8px 18px;
+  border: 2px solid var(--primary);
+  border-radius: var(--pill);
+  background-color: transparent;
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.nav-btn:hover,
+.nav-btn:focus,
+.btn:hover,
+.btn:focus {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+  text-decoration: none;
+  box-shadow: none;
+}
+
+/* Filled version: current page in the nav, and main action buttons */
+.nav-btn.active,
+.btn-primary,
+.btn-success,
+.btn-warning {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-success:hover,
+.btn-success:focus,
+.btn-warning:hover,
+.btn-warning:focus {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  color: #ffffff;
+}
+
+/* Destructive actions keep a red outline so they stand out */
+.btn-danger {
+  border-color: #c0392b;
+  color: #c0392b;
+  background-color: transparent;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: #c0392b;
+  border-color: #c0392b;
+  color: #ffffff;
+}
+
+/* ---------- Hero (home page) ---------- */
+.jumbotron {
+  display: flex;
+  align-items: center;
+  min-height: 60vh;
+  margin: 0;
+  padding: 48px 16px;
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+.jumbotron h1 {
+  color: var(--primary);
+}
+
+.jumbotron .lead {
+  color: var(--text);
+}
+
+/* ---------- Cards ---------- */
+.card {
+  margin: 24px auto;
+  max-width: 1200px;
+  min-height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  padding: 20px;
 }
-.card {
-  border: 2px solid #ddd;  /* Thinner border */
-  border-radius: 8px;
-  margin-bottom: 40px;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Slightly stronger shadow for depth */
-  padding: 20px;  /* Add padding inside the card */
-}
+
+/* Card titles: green text with a thin rule, like the header */
 .card h2 {
-  background-color: #007bff;
-  color: #333;  /* Change font color to dark gray */
-  padding: 15px;
-  border-radius: 8px 8px 0 0;
-  margin: 0;
+  background-color: transparent;
+  color: var(--primary);
+  padding: 0 0 12px;
+  margin: 0 0 12px;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
 }
+
 .card .genre {
-  font-size: 16px;
-  color: #777;
-  margin: 10px 15px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0 0 10px;
 }
+
+.card-header {
+  background-color: transparent;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.card-link {
+  font-size: 1rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.card-link:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
 .ingredients, .instructions {
-  padding: 0 15px 15px;
+  padding: 0 0 15px;
 }
+
 .ingredients ul, .instructions ol {
   margin-bottom: 15px;
 }
-.card-header {
-  color: #333;
+
+.category-header {
+  color: var(--accent);
 }
-.card-link {
-  margin: 15px;
-  font-size: 16px;
-  color: #007bff;
-  text-decoration: none;
-}
-.card-link:hover {
-  text-decoration: underline;
-}
+
+/* ---------- Layout ---------- */
 .container {
   margin-bottom: 2rem;
 }
 
-a {
-    color: #ffc107;
-}
-
-.jumbotron {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  min-height: 80vh;
-  color: white;
-  background-color: #333;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
 .space-above {
-    margin-top: 20px;
-    padding-top: 20px;
+  margin-top: 20px;
+  padding-top: 20px;
 }
+
 pre {
-  background-color: #f4f4f4;
+  background-color: var(--surface-alt);
+  color: var(--text);
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
   overflow: auto;
 }
+
+/* ---------- Buttons layout ---------- */
 .button-container {
   display: flex;
-  margin-bottom: 2rem;
   justify-content: space-between;
   width: 100%;
   max-width: 400px;
   gap: 10px;
-  padding-bottom: 100px; /* Adds space at the bottom of the body */
+  margin-bottom: 1.5rem;
 }
+
 .centered-btn {
-  display: block;       /* Make the button a block element */
-  margin: 1.5rem auto;  /* Center the button horizontally and add space above */
-  text-align: center;   /* Align the button's text to the center if needed */
-  margin-right: 10px;
+  display: block;
+  margin: 1.5rem auto;
+  text-align: center;
   width: 100%;
 }
+
+/* ---------- Forms ---------- */
 .input-container {
   display: flex;
-  width: 100%; /* Ensure container takes full width */
+  width: 100%;
+  gap: 8px;
 }
-.input-container input {
-  padding: 5px;
-  display: flex;
-  width: 100%
+
+.input-container input,
+.form-control,
+.form-select {
+  width: 100%;
+  padding: 8px 12px;
+  background-color: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
 }
+
+.input-container input:focus,
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
 .ingredient-quantity {
-  flex: 1; /* This gives 1/4 of the space */
+  flex: 1;
 }
+
 .ingredient-name {
-  flex: 8; /* This gives 3/4 of the space */
+  flex: 8;
 }
+
 #ingredients-section {
-  display: 400px;
+  max-height: 400px;
   overflow-y: auto;
 }
-*{
-  box-sizing: border-box;
+
+/* ---------- Alerts (flash messages) ---------- */
+.alert {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
 }
-.category-header {
-  color: #b4c0f7; /* Replace with your desired color */
+
+.alert-success {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  border-color: var(--primary-light);
 }
+
+/* ---------- Footer ---------- */
+.footer {
+  flex-shrink: 0;
+  padding: 20px 16px;
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.footer a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer a:hover,
+.footer a:focus {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/*------ For testing * { outline: 1px solid red; } -----*/

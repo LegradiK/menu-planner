@@ -4,6 +4,7 @@ Where it all comes together
 """
 import json
 import os
+from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request, redirect, url_for, flash, session
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
@@ -12,12 +13,13 @@ from wtforms.validators import DataRequired
 from build_menu import build_main_menu, bread_suggestion
 from save_recipe import save_recipe
 from shopping_list import collect_ingredients, update_shopping_list, categorize_ingredients
-
-
+from datetime import datetime
 
 
 app = Flask(__name__)
 Bootstrap(app)
+
+load_dotenv("data.env")
 
 app.config['SECRET_KEY'] = os.getenv("FLASK_KEY")
 
@@ -49,6 +51,10 @@ class DeleteForm(FlaskForm):
     recipe_name = StringField('Recipe Name', validators=[DataRequired()])
     submit = SubmitField('Search')
     delete = SubmitField('Confirm Delete')
+
+@app.context_processor
+def inject_year():
+    return {"current_year": datetime.now().year}
 
 @app.route('/')
 def home():
